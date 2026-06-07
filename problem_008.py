@@ -1,5 +1,10 @@
 import math
 
+# We can essentially compare a block of 13 adjacent digits in the integer and move that block by one step in each iteration
+# We can start by converting the integer to a string a creating a map for its digits
+# Then we simply loop through the string and look at 13 digits at a time
+# After every loop, we move that block one position to the right in the string
+
 def greatest_product(num):
     string_format = str(num)
     digits = list(map(int, string_format))
