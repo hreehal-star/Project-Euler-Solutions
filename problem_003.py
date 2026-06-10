@@ -18,8 +18,7 @@ def greatest_prime_factor(number: int) -> int:
     # subtracting the return value by 2 because we added an extra 2 on the last iteration
     return divisor - 2
 
-# result = greatest_prime_factor(600851475143)
-result = greatest_prime_factor(990099)
+result = greatest_prime_factor(600851475143)
 
 print(result)
         

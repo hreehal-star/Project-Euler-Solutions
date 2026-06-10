@@ -3,7 +3,7 @@
 # Then, every other factor can be accounted for by multiplying our number by either 2, 3, or both (6)
 # Once the number can be divided evenly by all integers from 1 to 20, we can simply return it
 
-def lowestDividend(limit: int):
+def lowest_dividend(limit: int):
     num = 1*2*3*5*7*11*13*17*19
 
     i = 1
@@ -20,5 +20,5 @@ def lowestDividend(limit: int):
             i = 1
     return num
 
-result = lowestDividend(20)
+result = lowest_dividend(20)
 print(result)

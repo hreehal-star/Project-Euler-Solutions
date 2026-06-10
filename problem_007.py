@@ -4,19 +4,19 @@ import math
 # By using Eratosthenes' sieve algorithm, we can collect all prime numbers up to our limit into a list
 # At the end, we simply need to search for the prime number at the position number in the list
 
-def findPrime(position):
+def find_prime(position):
     primes_list = [2, 3]
     limit = position * math.log(position * math.log(position))
-    for i in range(4, 115000):
+    for i in range(4, int(limit)):
         for x in primes_list:
             if i % x == 0:
-                flag = False
+                is_prime = False
                 break
-            flag = True
-        if flag == True:
+            is_prime = True
+        if is_prime == True:
             primes_list.append(i)
     return primes_list[position - 1]
 
-result = findPrime(10001)
+result = find_prime(10001)
 print(result)
         
