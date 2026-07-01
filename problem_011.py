@@ -25,3 +25,39 @@ input_grid = """
 """
 
 input_grid = [[int(x) for x in row.split()] for row in grid.strip().splitlines()]
+
+
+# For each element in row x, search up 4 moves (if you can) in all directions
+# Left is subtracting 3 times to the column number, Right is adding 3 times to the column number
+# Up is subtracting 3 times to the row number, Down is adding 3 times to the row number
+# Diagonal Top right is add to row and column, Diagonal Bottom Right is subtract from row and add column
+# Diagonal Top Left ius add to row and subtract from column, Diagonal Bottom Left is subtract from row and column
+
+def max_adjacent_product(grid):
+    maximum = 0
+    # Loop through all elements in the grid:
+    for row in range(0, 20):
+        for column in range (0, 20):
+            for k in range (1, 4):
+                grid[row][column]
+    
+    return maximum
+
+def check_upward(grid, row, column):
+    upward_count = grid[row][column]
+    
+    if (row >= 3 and row <= 16):
+        for i in range (1, 4):
+            upward_count = upward_count * grid[row + i][column]
+    
+    upward_diagonal_count = grid[row][column]
+
+    
+
+
+
+def check_downward(grid, row, column):
+
+def check_left(grid, row, column):
+
+def check_right(grid, row, column):
