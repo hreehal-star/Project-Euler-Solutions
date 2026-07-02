@@ -43,21 +43,43 @@ def max_adjacent_product(grid):
     
     return maximum
 
-def check_upward(grid, row, column):
+def check_upward(grid, row, column) -> int:
     upward_count = grid[row][column]
-    
-    if (row >= 3 and row <= 16):
+
+    if (row >= 3):
         for i in range (1, 4):
-            upward_count = upward_count * grid[row + i][column]
-    
-    upward_diagonal_count = grid[row][column]
+            upward_count = upward_count * grid[row - i][column]
 
-    
-
-
+    return upward_count
 
 def check_downward(grid, row, column):
 
+    if (row <= 16):
+        for i in range (1, 4):
+            downward_count = downward_count * grid[row + i][column]
+
+    return downward_count
+
 def check_left(grid, row, column):
 
+    left_count = grid[row][column]
+    upward_left_count = grid[row][column]
+
+    if (column >= 3):
+        for i in range (1, 4):
+            left_count = left_count * grid[row][column - i]
+    
+    if (column >= 3 and row >= 3):
+        upward_left_count = upward_left_count * grid[row - i]
+
+    return 
+
 def check_right(grid, row, column):
+
+    downward_diagonal_count = grid[row][column]
+
+    if (row <= 16):
+        for i in range (1, 4):
+            downward_diagonal_count = downward_diagonal_count * grid[row - i][column + i]
+
+    return max(downward_diagonal_count)
