@@ -1,5 +1,91 @@
-# The naive solution is to check all five possibilities for each integer in the grid
+# Left is subtracting 3 times to the column number, Right is adding 3 times to the column number
+# Up is subtracting 3 times to the row number, Down is adding 3 times to the row number
+# Diagonal Top right is adding 3 times to row and column, Diagonal Bottom Right is subtracting 3 times from row and add column
+# Diagonal Top Left ius adding 3 times to row and subtract from column, Diagonal Bottom Left is subtracting 3 times from row and column
 
+def max_adjacent_product(grid)-> int:
+    maximum = 0
+    # Loop through all elements in the grid:
+    for row in range(0, 20):
+        for column in range (0, 20):
+            up_direction = check_upward(grid, row, column)
+            down_direction = check_downward(grid, row, column)          
+            left_direction = check_left(grid, row, column)   
+            right_direction = check_right(grid, row, column)
+            current_product = max(up_direction, down_direction, left_direction, right_direction) 
+            if (current_product > maximum):
+                maximum = current_product         
+    return maximum
+
+def check_upward(grid, row, column)-> int:
+    upward_count = grid[row][column]
+
+    if (row >= 3):
+        for i in range (1, 4):
+            upward_count = upward_count * grid[row - i][column]
+    else:
+        upward_count = 0
+
+    return upward_count
+
+def check_downward(grid, row, column)-> int:
+    downward_count = grid[row][column]
+
+    if (row <= 16):
+        for i in range (1, 4):
+            downward_count = downward_count * grid[row + i][column]
+    else:
+        downward_count = 0
+
+    return downward_count
+
+def check_left(grid, row, column)-> int:
+
+    left_count = upward_left_count = downward_left_count = grid[row][column]
+    
+    if (column >= 3):
+        for i in range (1, 4):
+            left_count = left_count * grid[row][column - i]
+    else:
+        left_count = 0
+    
+    if (column >= 3 and row >= 3):
+        for i in range (1, 4):
+            upward_left_count = upward_left_count * grid[row - i][column - i]
+    else:
+        upward_left_count = 0
+    
+    if (column >= 3 and row <= 16):
+        for i in range (1, 4):
+            downward_left_count = downward_left_count * grid[row + i][column - i]
+    else:
+        downward_left_count = 0
+
+    return max(left_count, upward_left_count, downward_left_count)
+
+def check_right(grid, row, column) -> int:
+
+    right_count = upward_right_count = downward_right_count = grid[row][column]
+
+    if (column <= 16):
+        for i in range (1, 4):
+            right_count = right_count * grid[row][column - i]
+    else:
+        right_count = 0
+    
+    if (column <= 16 and row >= 3):
+        for i in range (1, 4):
+            upward_right_count = upward_right_count * grid[row - i][column + i]
+    else:
+        upward_right_count = 0
+    
+    if (column <= 16 and row <= 16):
+        for i in range (1, 4):
+            downward_right_count = downward_right_count * grid[row + i][column + i]
+    else:
+        downward_right_count = 0
+
+    return max(right_count, upward_right_count, downward_right_count)
 
 input_grid = """
 08 02 22 97 38 15 00 40 00 75 04 05 07 78 52 12 50 77 91 08
@@ -24,62 +110,7 @@ input_grid = """
 01 70 54 71 83 51 54 69 16 92 33 48 61 43 52 01 89 19 67 48
 """
 
-input_grid = [[int(x) for x in row.split()] for row in grid.strip().splitlines()]
+input_grid = [[int(x) for x in row.split()] for row in input_grid.strip().splitlines()]
 
-
-# For each element in row x, search up 4 moves (if you can) in all directions
-# Left is subtracting 3 times to the column number, Right is adding 3 times to the column number
-# Up is subtracting 3 times to the row number, Down is adding 3 times to the row number
-# Diagonal Top right is add to row and column, Diagonal Bottom Right is subtract from row and add column
-# Diagonal Top Left ius add to row and subtract from column, Diagonal Bottom Left is subtract from row and column
-
-def max_adjacent_product(grid):
-    maximum = 0
-    # Loop through all elements in the grid:
-    for row in range(0, 20):
-        for column in range (0, 20):
-            for k in range (1, 4):
-                grid[row][column]
-    
-    return maximum
-
-def check_upward(grid, row, column) -> int:
-    upward_count = grid[row][column]
-
-    if (row >= 3):
-        for i in range (1, 4):
-            upward_count = upward_count * grid[row - i][column]
-
-    return upward_count
-
-def check_downward(grid, row, column):
-
-    if (row <= 16):
-        for i in range (1, 4):
-            downward_count = downward_count * grid[row + i][column]
-
-    return downward_count
-
-def check_left(grid, row, column):
-
-    left_count = grid[row][column]
-    upward_left_count = grid[row][column]
-
-    if (column >= 3):
-        for i in range (1, 4):
-            left_count = left_count * grid[row][column - i]
-    
-    if (column >= 3 and row >= 3):
-        upward_left_count = upward_left_count * grid[row - i]
-
-    return 
-
-def check_right(grid, row, column):
-
-    downward_diagonal_count = grid[row][column]
-
-    if (row <= 16):
-        for i in range (1, 4):
-            downward_diagonal_count = downward_diagonal_count * grid[row - i][column + i]
-
-    return max(downward_diagonal_count)
+largest_product = max_adjacent_product(input_grid)
+print(largest_product)
